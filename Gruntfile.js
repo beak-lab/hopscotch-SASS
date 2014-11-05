@@ -95,25 +95,6 @@ module.exports = function(grunt) {
       }
     },
 
-    less: {
-      dev: {
-        options: {
-          paths: ['<%=paths.source%>/less']
-        },
-        files: {
-          '<%=paths.build%>/css/hopscotch.css': '<%=paths.source%>/less/hopscotch.less'
-        }
-      },
-      prod: {
-        options: {
-          cleancss: true,
-          paths: ['<%=paths.source%>/less']
-        },
-        files: {
-          '<%=paths.build%>/css/hopscotch.min.css': '<%=paths.source%>/less/hopscotch.less'
-        }
-      }
-    },
     sass: {
       dev: {
         options: {
