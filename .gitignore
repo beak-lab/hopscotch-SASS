@@ -2,3 +2,5 @@ node_modules
 tmp
 .idea
 *.iml
+.sass-cache
+*.sublime*
