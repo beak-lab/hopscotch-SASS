@@ -94,6 +94,7 @@ module.exports = function(grunt) {
         dest: '<%=paths.build%>/js/hopscotch.min.js'
       }
     },
+
     less: {
       dev: {
         options: {
@@ -113,6 +114,30 @@ module.exports = function(grunt) {
         }
       }
     },
+    sass: {
+      dev: {
+        options: {
+          style: 'expanded',
+          loadPath: ['<%=paths.source%>/scss'],
+          quiet: false,
+        },
+        files: {
+          '<%=paths.build%>/css/hopscotch.css': '<%=paths.source%>/scss/hopscotch.scss'
+        }
+      },
+      prod: {
+        options: {
+          style: 'compressed',
+          loadPath: ['<%=paths.source%>/scss'],
+          quiet: true,
+          sourcemap: 'none',
+        },
+        files: {
+          '<%=paths.build%>/css/hopscotch.min.css': '<%=paths.source%>/scss/hopscotch.scss'
+        }
+      }
+    },
+
     jst: {
       compile: {
         options: {
@@ -142,6 +167,10 @@ module.exports = function(grunt) {
       jsFiles: {
         files: ['<%=paths.source%>/**/*', '<%=paths.test%>/**/*'],
         tasks: ['test']
+      },
+      sass: {
+        files: ['<%=paths.source%>/scss/*'],
+        tasks: ['sass:dev']
       }
     },
     compress: {
@@ -206,7 +235,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-jst');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compress');
@@ -218,8 +247,8 @@ module.exports = function(grunt) {
   //grunt task aliases
   grunt.registerTask(
     'build',
-    'Build hopscotch for testing (jshint, minify js, process less to css)',
-    ['jshint:lib', 'clean:build', 'copy:build', 'jst:compile', 'includereplace:jsSource', 'uglify:build', 'less']
+    'Build hopscotch for testing (jshint, minify js, process sass to css)',
+    ['jshint:lib', 'clean:build', 'copy:build', 'jst:compile', 'includereplace:jsSource', 'uglify:build', 'sass']
   );
   grunt.registerTask(
     'test',
